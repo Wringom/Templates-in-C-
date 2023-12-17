@@ -1,0 +1,53 @@
+#include <iostream>
+
+// Template class for a simple stack implementation
+template<typename T>
+class Stack {
+private:
+    T* stackArray;
+    int top;
+    int capacity;
+
+public:
+    Stack(int size) {
+        capacity = size;
+        stackArray = new T[capacity];
+        top = -1;
+    }
+
+    ~Stack() {
+        delete[] stackArray;
+    }
+
+    void push(T element) {
+        if (top == capacity - 1) {
+            std::cout << "Stack Overflow!" << std::endl;
+            return;
+        }
+        stackArray[++top] = element;
+    }
+
+    T pop() {
+        if (top == -1) {
+            std::cout << "Stack Underflow!" << std::endl;
+            return T();
+        }
+        return stackArray[top--];
+    }
+};
+
+int main() {
+    // Using the Stack class with int data type
+    Stack<int> intStack(5);
+    intStack.push(10);
+    intStack.push(20);
+    std::cout << "Popped element from intStack: " << intStack.pop() << std::endl;
+
+    // Using the Stack class with string data type
+    Stack<std::string> stringStack(3);
+    stringStack.push("Hello");
+    stringStack.push("World");
+    std::cout << "Popped element from stringStack: " << stringStack.pop() << std::endl;
+
+    return 0;
+}
